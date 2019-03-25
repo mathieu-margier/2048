@@ -82,3 +82,28 @@ void GrilleItem::setSize(int size)
     beginInsertRows(QModelIndex(), 0, size*size - 1);
     endInsertRows();
 }
+
+void GrilleItem::deplacerBas()
+{
+    deplacer(Grille::BAS);
+}
+
+void GrilleItem::deplacerHaut()
+{
+    deplacer(Grille::HAUT);
+}
+
+void GrilleItem::deplacerGauche()
+{
+    deplacer(Grille::GAUCHE);
+}
+void GrilleItem::deplacerDroite()
+{
+    deplacer(Grille::DROITE);
+}
+
+void GrilleItem::deplacer(Grille::Direction dir)
+{
+    _plateau.deplacer(dir);
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+}

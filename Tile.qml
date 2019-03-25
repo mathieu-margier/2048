@@ -13,10 +13,11 @@ Item {
             switch (value)
             {
             case 0:
+                return "#59eee4da";
             case 2:
-                return "#eee4da"
+                return "#eee4da";
             case 4:
-                return "#ede0c8"
+                return "#ede0c8";
             case 8:
                 return "#f2b179";
             case 16:
