@@ -83,6 +83,11 @@ void GrilleItem::setSize(int size)
     endInsertRows();
 }
 
+int GrilleItem::getScore() const
+{
+    return _plateau.getScore();
+}
+
 void GrilleItem::deplacerBas()
 {
     deplacer(Grille::BAS);
@@ -104,6 +109,11 @@ void GrilleItem::deplacerDroite()
 
 void GrilleItem::deplacer(Grille::Direction dir)
 {
+    int oldScore = getScore();
     _plateau.deplacer(dir);
     emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    int newScore = getScore();
+    if (oldScore != newScore)
+        emit scoreChanged(oldScore, newScore);
 }

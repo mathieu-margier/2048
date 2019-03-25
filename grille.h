@@ -35,6 +35,8 @@ public:
     void deplacer(Direction dir);
     bool check(Direction dir);
 
+    int getScore() const;
+
 private:
     void deplacerHaut();
     void deplacerBas();
@@ -46,7 +48,7 @@ private:
     bool checkDroite();
 
 private:
-
+    int _score;
 };
 
 #endif // PLATEAU_H

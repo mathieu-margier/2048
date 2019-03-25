@@ -6,8 +6,8 @@ Window {
     property int counter: 2
     id: window
     visible: true
-    width: 640
-    height: 480
+    width: 900
+    height: 600
     title: qsTr("2048")
 
     Grille {
@@ -35,7 +35,44 @@ Window {
         }
     }
 
-    // TODO test, enlever dès que possible
+    Item {
+        id: scorePanel
+        anchors.right: parent.right
+        anchors.rightMargin: 250
+        anchors.left: parent.left
+        anchors.leftMargin: 250
+        anchors.bottom: grille.top
+        anchors.bottomMargin: 10
+        anchors.top: parent.top
+        anchors.topMargin: 10
+
+        Row {
+            id: scoreRows
+            spacing: 10
+            anchors.fill: parent
+
+            Text {
+                id: scoreLabel
+                text: qsTr("Score :")
+                horizontalAlignment: Text.AlignLeft
+                anchors.verticalCenter: parent.verticalCenter
+                lineHeight: 0.9
+                font.family: "Verdana"
+                font.pixelSize: 45
+            }
+
+            Text {
+                id: scoreValue
+                text: grilleItem.score
+                //anchors.left: scoreLabel.right
+                anchors.leftMargin: 100
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: 45
+            }
+        }
+    }
+
+     // TODO test, enlever dès que possible
     MouseArea {
         anchors.fill: parent
 
@@ -48,4 +85,10 @@ Window {
             /*grilleItem.size = 2*/
         }
     }
+
 }
+
+/*##^## Designer {
+    D{i:2;anchors_height:66;anchors_y:28}
+}
+ ##^##*/

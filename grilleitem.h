@@ -10,6 +10,7 @@ class GrilleItem : public QAbstractItemModel
     Q_OBJECT
 
     Q_PROPERTY(int size READ getSize WRITE setSize NOTIFY sizeChanged)
+    Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
 
 public:
     GrilleItem(Grille &pl);
@@ -25,6 +26,7 @@ public:
     // TODO Faire une propriété
     Q_INVOKABLE int getSize() const;
     Q_INVOKABLE void setSize(int size);
+    Q_INVOKABLE int getScore() const;
     Q_INVOKABLE void setTile(int i, int j, int value);
     Q_INVOKABLE void deplacerBas();
     Q_INVOKABLE void deplacerHaut();
@@ -36,6 +38,7 @@ private:
 
 signals:
     void sizeChanged(int oldSize, int newSize);
+    void scoreChanged(int oldScore, int newScore);
 
 private:
     Grille &_plateau;
