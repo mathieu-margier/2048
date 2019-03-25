@@ -41,12 +41,12 @@ void DamierDyn::Alloc(int l, int c){
 }
 
 void DamierDyn::Print(){
-    cout << endl;
     for(int i=0; i<L; i++) {
         cout << endl;
         for(int j=0; j<C; j++)
             cout << T[i][j] << " ";
     }
+    cout << endl;
 }
 
 void DamierDyn::Init(int value){
