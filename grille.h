@@ -46,6 +46,7 @@ private:
     bool checkBas();
     bool checkGauche();
     bool checkDroite();
+    void initialiser();
 
 private:
     int _score;

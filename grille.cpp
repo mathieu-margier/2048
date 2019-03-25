@@ -4,7 +4,7 @@
 Grille::Grille(int taille)
     : DamierDyn (taille, taille, 0), _score(0)
 {
-
+    initialiser();
 }
 
 Grille::Grille(const Grille& copie)
@@ -29,6 +29,16 @@ Grille& Grille::operator=(const Grille& autre)
 int Grille::getScore() const
 {
     return _score;
+}
+
+void Grille::initialiser()
+{
+    Init(0);
+
+    for (int i = 0 ; i < 2; i++)
+    {
+        AjoutNombreAlea();
+    }
 }
 
 void Grille::deplacer(Direction dir)
@@ -92,6 +102,8 @@ void Grille::deplacer(Direction dir)
         deplacerDroite();
         break;
     }
+
+    AjoutNombreAlea();
 }
 
 void Grille::deplacerHaut()
