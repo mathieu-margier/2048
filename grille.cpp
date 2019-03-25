@@ -347,6 +347,7 @@ bool Grille::checkGauche()
 
 bool Grille::checkVoid(int i, int j)
 {
+    // On vérifie si la case est vide (=contient un 0)
     if (Get(i,j)==0){
         return true;
     }
@@ -357,6 +358,7 @@ bool Grille::checkVoid(int i, int j)
 
 bool Grille::checkAdj(int i, int j, int x, int y)
 {
+    //On vérifie si les cases adjacentes (i,j) et (x,y) ont la même valeur
     if (Get(i,j)==Get(x,y)){
         return true;
     }
@@ -367,6 +369,7 @@ bool Grille::checkAdj(int i, int j, int x, int y)
 
 void Grille::SommeAdjHaut(int i,int j)
 {
+    //On fait la somme de deux termes adjacentes de même valeur lors d'un mouvement vers le haut
     if (checkAdj(i,j,i-1,j)){
         int v1=Get(i,j);
         int v2=Get(i-1,j)+v1;
@@ -379,6 +382,7 @@ void Grille::SommeAdjHaut(int i,int j)
 
 void Grille::SommeAdjBas(int i,int j)
 {
+    //On fait la somme de deux termes adjacentes de même valeur lors d'un mouvement vers le bas
     if (checkAdj(i,j,i+1,j)){
         int v1=Get(i,j);
         int v2=Get(i+1,j)+v1;
@@ -391,6 +395,7 @@ void Grille::SommeAdjBas(int i,int j)
 
 void Grille::SommeAdjDroite(int i,int j)
 {
+    //On fait la somme de deux termes adjacentes de même valeur lors d'un mouvement vers la droite
     if (checkAdj(i,j,i,j+1)){
         int v1=Get(i,j);
         int v2=Get(i,j+1)+v1;
@@ -403,6 +408,7 @@ void Grille::SommeAdjDroite(int i,int j)
 
 void Grille::SommeAdjGauche(int i,int j)
 {
+    //On fait la somme de deux termes adjacentes de même valeur lors d'un mouvement vers la gauche
     if (checkAdj(i,j,i,j-1)){
         int v1=Get(i,j);
         int v2=Get(i,j-1)+v1;
@@ -415,6 +421,7 @@ void Grille::SommeAdjGauche(int i,int j)
 
 void Grille::AjoutNombreAlea()
 {
+    //On ajoute un nombre de manière aléatoire sur le plateau. Dans 90% des cas, on ajoute un 2 et dans les 10% restants, on ajoute un 4.
     bool b=false;
     int n1;
     int n2;
@@ -429,5 +436,19 @@ void Grille::AjoutNombreAlea()
     }
     else {
         Set(n1,n2,4);
+    }
+}
+
+bool Grille::check2048()
+{
+    //On vérifie si il y a une case contenant 2048 pour valeur. Cela marque la victoire du jeu.
+    bool b=false;
+    for (int i=0;i<GetLines();i++){
+        for (int j=0;j<GetColumns();j++){
+            if (Get(i,j)==2048){
+                b=true;
+                break;
+            }
+        }
     }
 }

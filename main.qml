@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
+import QtQuick.Controls 1.6
 
 Window {
     // TODO test, enlever dès que plus nécessaire
@@ -84,11 +85,26 @@ Window {
             // Test changement de taille
             /*grilleItem.size = 2*/
         }
+
+        Text {
+            id: message
+            text: qsTr("GAME OVER")
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.bold: true
+            transformOrigin: Item.Center
+            font.family: "Verdana"
+            anchors.fill: parent
+            font.pixelSize: 74
+            visible:false
+        }
     }
 
 }
 
+
+
 /*##^## Designer {
-    D{i:2;anchors_height:66;anchors_y:28}
+    D{i:2;anchors_height:66;anchors_y:28}D{i:7;anchors_x:60;anchors_y:180}
 }
  ##^##*/

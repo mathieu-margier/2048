@@ -29,7 +29,7 @@ public:
 
     void AjoutNombreAlea();
 
-    void NouvellePartie();
+    bool check2048();
 
     // TODO Ajouter fonctions pour manipuler le plateau (move, set, etc.)
     void deplacer(Direction dir);
