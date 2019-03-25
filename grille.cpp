@@ -1,4 +1,5 @@
 #include "grille.h"
+#include <cstdlib>
 
 Grille::Grille(int taille)
     : DamierDyn (taille, taille, 0)
@@ -81,5 +82,24 @@ void Grille::SommeAdjGauche(int i,int j)
         int v2=Get(i,j-1)+v1;
         Set(i,j-1,v2);
         Set(i,j,0);
+    }
+}
+
+void Grille::AjoutNombreAlea()
+{
+    bool b=false;
+    int n1;
+    int n2;
+    while (b!=true){
+        n1=rand()%4;
+        n2=rand()%4;
+        b=checkVoid(n1,n2);
+    }
+    int c=rand()%100;
+    if (c<90){
+        Set(n1,n2,2);
+    }
+    else {
+        Set(n1,n2,4);
     }
 }
