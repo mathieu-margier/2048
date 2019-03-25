@@ -14,6 +14,25 @@ Window {
         id: grille
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
+
+        focus: true
+        Keys.onPressed: {
+            switch (event.key)
+            {
+            case Qt.Key_Left:
+                grilleItem.deplacerGauche();
+                break;
+            case Qt.Key_Right:
+                grilleItem.deplacerDroite();
+                break;
+            case Qt.Key_Up:
+                grilleItem.deplacerHaut();
+                break;
+            case Qt.Key_Down:
+                grilleItem.deplacerBas();
+                break;
+            }
+        }
     }
 
     // TODO test, enlever dès que possible

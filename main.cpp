@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
         }
     }*/
 
+
     /*grille.Set(0,0,2);
     grille.Set(0,1,2);
     grille.SommeAdjGauche(0,1);
@@ -42,6 +43,7 @@ int main(int argc, char *argv[])
     } catch (string chaine) {
         cout<<chaine<<endl;
     }
+
 
 
     QQmlApplicationEngine engine;
