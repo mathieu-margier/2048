@@ -27,6 +27,8 @@ public:
     void SommeAdjDroite(int i, int j);
     void SommeAdjGauche(int i, int j);
 
+    void AjoutNombreAlea();
+
     void NouvellePartie();
 
     // TODO Ajouter fonctions pour manipuler le plateau (move, set, etc.)

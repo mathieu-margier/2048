@@ -1,13 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+
 #include <QtQml>
 #include "grille.h"
 #include "grilleitem.h"
 
 int main(int argc, char *argv[])
 {
-
+    srand(time(NULL));
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
@@ -25,25 +26,25 @@ int main(int argc, char *argv[])
         }
     }*/
 
-    grille.Set(0, 0, 2);
-    grille.Set(2, 0, 4);
-    grille.Set(0, 1, 2);
-    grille.Set(3, 1, 4);
-    grille.Set(0, 2, 2);
-    grille.Set(2, 2, 4);
-    grille.Set(3, 2, 8);
-    grille.Set(1, 3, 2);
-    grille.Set(3, 3, 4);
+
+    /*grille.Set(0,0,2);
+    grille.Set(0,1,2);
+    grille.SommeAdjGauche(0,1);
+    grille.Set(1,0,4);
+    grille.SommeAdjHaut(1,0);*/
+
+    try {
+        grille.AjoutNombreAlea();
+        grille.Print();
+        grille.AjoutNombreAlea();
+        grille.Print();
+        grille.AjoutNombreAlea();
+        grille.Print();
+    } catch (string chaine) {
+        cout<<chaine<<endl;
+    }
 
 
-    /*cout << "Avant : " << endl;
-    grille.Print();
-    cout << endl;
-
-    grille.deplacer(Grille::DROITE);
-    cout << "Après : " << endl;
-    grille.Print();
-    cout << endl;*/
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("grilleItem", &grilleItem);
