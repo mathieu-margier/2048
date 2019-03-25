@@ -48,7 +48,7 @@ Item {
     Text {
         id: tileValue
         text: qsTr("" + value)
-        font.pointSize: 19
+        font.pointSize: 17
         font.bold: true
         font.family: "Verdana"
         verticalAlignment: Text.AlignVCenter

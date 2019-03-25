@@ -33,18 +33,55 @@ void Grille::deplacer(Direction dir)
         return;
     }
 
+    int n = GetLines(), m = GetColumns();
     switch (dir)
     {
     case HAUT:
+        // Déplacement des cases vers le haut
+        deplacerHaut();
+        // Fusion des cases adjacentes
+        for (int j = 0; j < m; j++)
+        {
+            for (int i = 1; i < n; i++)
+                SommeAdjHaut(i, j);
+        }
+        // On re-déplace en haut pour combler les vides potentiels
         deplacerHaut();
         break;
     case BAS:
+        // Déplacement des cases vers le bas
+        deplacerBas();
+        // Fusion des cases adjacentes
+        for (int j = 0; j < m; j++)
+        {
+            for (int i = n - 2; i >= 0; i--)
+            {
+                SommeAdjBas(i, j);
+            }
+        }
+        // On re-déplace en bas pour combler les vides potentiels
         deplacerBas();
         break;
     case GAUCHE:
         deplacerGauche();
+        // Fusion des cases adjacentes
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 1; j < m; j++)
+                SommeAdjGauche(i, j);
+        }
+        // On re-déplace à gauche pour combler les vides potentiels
+        deplacerGauche();
         break;
     case DROITE:
+        deplacerDroite();
+        // Fusion des cases adjacentes
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = m - 2; j >= 0; j--)
+                SommeAdjDroite(i, j);
+        }
+        // On re-déplace à gauche pour combler les vides potentiels
         deplacerDroite();
         break;
     }
@@ -287,4 +324,64 @@ bool Grille::checkGauche()
     }
 
     return false;
+}
+
+bool Grille::checkVoid(int i, int j)
+{
+    if (Get(i,j)==0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool Grille::checkAdj(int i, int j, int x, int y)
+{
+    if (Get(i,j)==Get(x,y)){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void Grille::SommeAdjHaut(int i,int j)
+{
+    if (checkAdj(i,j,i-1,j)){
+        int v1=Get(i,j);
+        int v2=Get(i-1,j)+v1;
+        Set(i-1,j,v2);
+        Set(i,j,0);
+    }
+}
+
+void Grille::SommeAdjBas(int i,int j)
+{
+    if (checkAdj(i,j,i+1,j)){
+        int v1=Get(i,j);
+        int v2=Get(i+1,j)+v1;
+        Set(i+1,j,v2);
+        Set(i,j,0);
+    }
+}
+
+void Grille::SommeAdjDroite(int i,int j)
+{
+    if (checkAdj(i,j,i,j+1)){
+        int v1=Get(i,j);
+        int v2=Get(i,j+1)+v1;
+        Set(i,j+1,v2);
+        Set(i,j,0);
+    }
+}
+
+void Grille::SommeAdjGauche(int i,int j)
+{
+    if (checkAdj(i,j,i,j-1)){
+        int v1=Get(i,j);
+        int v2=Get(i,j-1)+v1;
+        Set(i,j-1,v2);
+        Set(i,j,0);
+    }
 }
