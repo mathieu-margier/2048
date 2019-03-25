@@ -1,15 +1,15 @@
 #include "grille.h"
 
 Grille::Grille(int taille)
-    : DamierDyn (taille, taille, 0)
+    : DamierDyn (taille, taille, 0), _score(0)
 {
 
 }
 
 Grille::Grille(const Grille& copie)
-    : DamierDyn (copie)
+    : DamierDyn (copie), _score(copie._score)
 {
-    // TODO Ajouter les autres membres de la classe Plateau
+    // TODO Ajouter les autres membres de la classe Grille
 }
 
 Grille& Grille::operator=(const Grille& autre)
@@ -18,10 +18,16 @@ Grille& Grille::operator=(const Grille& autre)
     if (&autre != this)
     {
         DamierDyn::operator=(autre);
-        // TODO Ajouter les autres membres de la classe Plateau
+        // TODO Ajouter les autres membres de la classe Grille
+        _score = autre._score;
     }
 
     return *this;
+}
+
+int Grille::getScore() const
+{
+    return _score;
 }
 
 void Grille::deplacer(Direction dir)
@@ -353,6 +359,8 @@ void Grille::SommeAdjHaut(int i,int j)
         int v2=Get(i-1,j)+v1;
         Set(i-1,j,v2);
         Set(i,j,0);
+
+        _score += v2;
     }
 }
 
@@ -363,6 +371,8 @@ void Grille::SommeAdjBas(int i,int j)
         int v2=Get(i+1,j)+v1;
         Set(i+1,j,v2);
         Set(i,j,0);
+
+        _score += v2;
     }
 }
 
@@ -373,6 +383,8 @@ void Grille::SommeAdjDroite(int i,int j)
         int v2=Get(i,j+1)+v1;
         Set(i,j+1,v2);
         Set(i,j,0);
+
+        _score += v2;
     }
 }
 
@@ -383,5 +395,7 @@ void Grille::SommeAdjGauche(int i,int j)
         int v2=Get(i,j-1)+v1;
         Set(i,j-1,v2);
         Set(i,j,0);
+
+        _score += v2;
     }
 }
