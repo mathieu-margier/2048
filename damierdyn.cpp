@@ -1,4 +1,6 @@
 #include "damierdyn.h"
+#include <string>
+#include <sstream>
 
 DamierDyn::DamierDyn(int l, int c, int vd)
 {
@@ -53,10 +55,34 @@ void DamierDyn::Init(int value){
             T[i][j]=value;
 }
 
-void DamierDyn::Set(int x, int y, int value) {
-    T[x][y]=value;
+void DamierDyn::Set(int i, int j, int value) {
+    T[i][j]=value;
 }
 
+int DamierDyn::Get(int i, int j)
+{
+    if ((j < 0 || j >= C) || (i < 0 || i >= L))
+    {
+        std::ostringstream error;
+        error << "Exception dans la fonction " << __PRETTY_FUNCTION__ << " :" << std::endl;
+        error << "Index en dehors du tableau" << std::endl;
+        error << "i : " << i << ", j : " << j << ", L : " << L << ", C : " << C;
+
+        throw error.str();
+    }
+
+    return T[i][j];
+}
+
+int DamierDyn::GetLines()
+{
+    return L;
+}
+
+int DamierDyn::GetColumns()
+{
+    return C;
+}
 
 void DamierDyn::ReDim(int l, int c, int vd) {
     Free();

@@ -19,8 +19,12 @@ public:
 
     void Print();
     void Init(int value);
-    void Set(int x, int y, int value);
+    void Set(int i, int j, int value);
+    int Get(int i, int j);
     void ReDim(int l, int c, int vd = 0);
+
+    int GetColumns();
+    int GetLines();
 
 private:
     int L;

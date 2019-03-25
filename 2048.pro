@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     damierdyn.cpp \
-    tile.cpp
+    grille.cpp \
+    grilleitem.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +33,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     damierdyn.h \
-    tile.h
+    grille.h \
+    grilleitem.h
