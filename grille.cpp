@@ -26,6 +26,13 @@ Grille& Grille::operator=(const Grille& autre)
 
 void Grille::deplacer(Direction dir)
 {
+    if (!check(dir))
+    {
+        // TODO Remove
+        cout << "Impossible de déplacer dans la direction " << dir << endl;
+        return;
+    }
+
     switch (dir)
     {
     case HAUT:
@@ -181,4 +188,103 @@ void Grille::deplacerGauche()
             }
         }
     }
+}
+
+bool Grille::check(Direction dir)
+{
+    switch (dir)
+    {
+    case BAS:
+        return checkBas();
+    case HAUT:
+        return checkHaut();
+    case GAUCHE:
+        return checkGauche();
+    case DROITE:
+        return checkDroite();
+    }
+}
+
+bool Grille::checkBas()
+{
+    int n = GetLines(), m = GetColumns();
+
+    for (int j = 0; j < m; j++)
+    {
+        // On vérifie si une colonne permet de jouer
+        for (int i = n - 1; i > 0; i--)
+        {
+            // Case vide en dessous d'une case non vide -> on peut jouer
+            if (Get(i, j) == 0 && Get(i-1, j) != 0)
+                return true;
+            // 2 cases adjacentes (non vides) de même valeur -> on peut jouer
+            else if (Get(i, j) == Get(i-1, j) && Get(i, j) != 0)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool Grille::checkHaut()
+{
+    int n = GetLines(), m = GetColumns();
+
+    for (int j = 0; j < m; j++)
+    {
+        // On vérifie si une colonne permet de jouer
+        for (int i = 0; i < n - 1; i++)
+        {
+            // Case vide au dessus d'une case non vide -> on peut jouer
+            if (Get(i, j) == 0 && Get(i+1, j) != 0)
+                return true;
+            // 2 cases adjacentes (non vides) de même valeur -> on peut jouer
+            else if (Get(i, j) == Get(i+1, j) && Get(i, j) != 0)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool Grille::checkDroite()
+{
+    int n = GetLines(), m = GetColumns();
+
+    for (int i = 0; i < n; i++)
+    {
+        // On vérifie si une ligne permet de jouer
+        for (int j = m - 1; j > 0; j--)
+        {
+            // Case vide à droite d'une case non vide -> on peut jouer
+            if (Get(i, j) == 0 && Get(i, j-1) != 0)
+                return true;
+            // 2 cases adjacentes (non vides) de même valeur -> on peut jouer
+            else if (Get(i, j) == Get(i, j-1) && Get(i, j) != 0)
+                return true;
+        }
+    }
+
+    return false;
+}
+
+bool Grille::checkGauche()
+{
+    int n = GetLines(), m = GetColumns();
+
+    for (int i = 0; i < n; i++)
+    {
+        // On vérifie si une ligne permet de jouer
+        for (int j = 0; j < m - 1; j++)
+        {
+            // Case vide à gauche d'une case non vide -> on peut jouer
+            if (Get(i, j) == 0 && Get(i, j+1) != 0)
+                return true;
+            // 2 cases adjacentes (non vides) de même valeur -> on peut jouer
+            else if (Get(i, j) == Get(i, j+1) && Get(i, j) != 0)
+                return true;
+        }
+    }
+
+    return false;
 }

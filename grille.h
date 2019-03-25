@@ -22,12 +22,17 @@ public:
 
     // TODO Ajouter fonctions pour manipuler le plateau (move, set, etc.)
     void deplacer(Direction dir);
+    bool check(Direction dir);
 
 private:
     void deplacerHaut();
     void deplacerBas();
     void deplacerGauche();
     void deplacerDroite();
+    bool checkHaut();
+    bool checkBas();
+    bool checkGauche();
+    bool checkDroite();
 
 private:
 
