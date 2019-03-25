@@ -26,6 +26,13 @@ public:
     Q_INVOKABLE int getSize() const;
     Q_INVOKABLE void setSize(int size);
     Q_INVOKABLE void setTile(int i, int j, int value);
+    Q_INVOKABLE void deplacerBas();
+    Q_INVOKABLE void deplacerHaut();
+    Q_INVOKABLE void deplacerGauche();
+    Q_INVOKABLE void deplacerDroite();
+
+private:
+    void deplacer(Grille::Direction dir);
 
 signals:
     void sizeChanged(int oldSize, int newSize);
