@@ -132,3 +132,14 @@ void GrilleItem::deplacer(Grille::Direction dir)
     if (isOver())
         emit etatPartieChanged(true);
 }
+
+void GrilleItem::newGame()
+{
+    int oldScore = getScore();
+    _plateau.newGame();
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    int newScore = getScore();
+    if (oldScore != newScore)
+        emit scoreChanged(oldScore, newScore);
+}

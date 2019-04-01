@@ -90,19 +90,19 @@ Window {
         visible: grilleItem.over
     }
 
-     // TODO test, enlever dès que possible
-    MouseArea {
-        anchors.fill: parent
-
-        onClicked: {
-            // Test changement de valeur
-            /*grilleItem.setTile(0, 0, counter)
-            counter = counter * 2;*/
-
-            // Test changement de taille
-            /*grilleItem.size = 2*/
+    Button {
+        id: button
+        x: 350
+        y: 520
+        width: 200
+        height: 50
+        text: qsTr("Nouvelle Partie")
+        onClicked:{
+            grilleItem.newGame();
         }
     }
+
+
 
 }
 

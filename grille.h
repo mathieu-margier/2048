@@ -37,6 +37,8 @@ public:
 
     int getScore() const;
 
+    void newGame();
+
 private:
     void deplacerHaut();
     void deplacerBas();
