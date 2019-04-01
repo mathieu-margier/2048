@@ -10,6 +10,8 @@ class Jeu : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool peutAnnuler READ peutAnnuler NOTIFY coupJoue)
+    Q_PROPERTY(bool peutRefaire READ peutRefaire NOTIFY coupJoue)
+
 public:
     explicit Jeu(int taille, QObject *parent = nullptr);
 
@@ -20,7 +22,9 @@ public:
     Q_INVOKABLE void deplacerGauche();
     Q_INVOKABLE void deplacerDroite();
     Q_INVOKABLE void annulerDernierCoup();
+    Q_INVOKABLE void refaireDernierCoup();
     Q_INVOKABLE bool peutAnnuler() const;
+    Q_INVOKABLE bool peutRefaire() const;
 
 private:
     void deplacer(Grille::Direction dir);
@@ -35,6 +39,7 @@ private:
     GrilleItem _plateauItem;
 
     std::stack<Grille> _coupsPrecedents;
+    std::stack<Grille> _coupsSuivants;
 };
 
 #endif // JEU_H

@@ -21,7 +21,14 @@ Window {
 
             if ((event.key === Qt.Key_Z) && (event.modifiers & Qt.ControlModifier))
             {
+                // Ctrl+Z
                 jeu.annulerDernierCoup();
+                return;
+            }
+            if ((event.key === Qt.Key_Y) && (event.modifiers & Qt.ControlModifier))
+            {
+                // Ctrl+Y
+                jeu.refaireDernierCoup();
                 return;
             }
 
@@ -97,8 +104,6 @@ Window {
         visible: grilleItem.over
     }
 
-
-    // TODO test, enlever dès que possible
     Item {
         id: boutonPanel
         x: 10
@@ -125,6 +130,17 @@ Window {
                 enabled: jeu.peutAnnuler
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: jeu.annulerDernierCoup()
+            }
+
+            Button {
+                id: refaire
+                width: 200
+                height: 50
+                text: qsTr("Rejouer le dernier coup")
+                tooltip: "Permet de refaire le dernier coup annulé"
+                enabled: jeu.peutRefaire
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: jeu.refaireDernierCoup()
             }
         }
     }
