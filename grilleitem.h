@@ -25,6 +25,8 @@ public:
     virtual QModelIndex parent(const QModelIndex &index) const;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
+    void changerGrille(const Grille& nvlleGrille);
+
     // TODO Faire une propriété
     Q_INVOKABLE int getSize() const;
     Q_INVOKABLE void setSize(int size);
@@ -32,12 +34,7 @@ public:
     Q_INVOKABLE void setTile(int i, int j, int value);
     Q_INVOKABLE bool isOver() const;
     Q_INVOKABLE bool isWin() const;
-    Q_INVOKABLE void deplacerBas();
-    Q_INVOKABLE void deplacerHaut();
-    Q_INVOKABLE void deplacerGauche();
-    Q_INVOKABLE void deplacerDroite();
 
-private:
     void deplacer(Grille::Direction dir);
 
 signals:

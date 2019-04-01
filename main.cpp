@@ -3,8 +3,7 @@
 
 
 #include <QtQml>
-#include "grille.h"
-#include "grilleitem.h"
+#include "jeu.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,11 +12,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-    Grille grille(4);
-    GrilleItem grilleItem(grille);
+    Jeu jeu(4);
 
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("grilleItem", &grilleItem);
+    engine.rootContext()->setContextProperty("jeu", &jeu);
+    engine.rootContext()->setContextProperty("grilleItem", &jeu.getPlateauItem());
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;

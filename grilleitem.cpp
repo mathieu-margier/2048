@@ -60,6 +60,25 @@ int GrilleItem::rowCount(const QModelIndex &parent) const
     return _plateau.GetLines() * _plateau.GetColumns();
 }
 
+void GrilleItem::changerGrille(const Grille &nvlleGrille)
+{
+    int oldScore = getScore();
+    int oldSize = getSize();
+    int oldOver = isOver();
+    // Recopie
+    _plateau = nvlleGrille;
+
+    if (getSize() != oldSize)
+        emit sizeChanged(oldSize, getSize());
+
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    if (getScore() != oldScore)
+        emit scoreChanged(oldScore, getScore());
+
+    if (isOver() != oldOver)
+        emit etatPartieChanged(isOver());
+}
 
 int GrilleItem::getSize() const
 {
@@ -98,25 +117,6 @@ bool GrilleItem::isOver() const
 bool GrilleItem::isWin() const
 {
     return _plateau.check2048();
-}
-
-void GrilleItem::deplacerBas()
-{
-    deplacer(Grille::BAS);
-}
-
-void GrilleItem::deplacerHaut()
-{
-    deplacer(Grille::HAUT);
-}
-
-void GrilleItem::deplacerGauche()
-{
-    deplacer(Grille::GAUCHE);
-}
-void GrilleItem::deplacerDroite()
-{
-    deplacer(Grille::DROITE);
 }
 
 void GrilleItem::deplacer(Grille::Direction dir)

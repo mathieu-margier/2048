@@ -18,19 +18,26 @@ Window {
 
         focus: true
         Keys.onPressed: {
+
+            if ((event.key === Qt.Key_Z) && (event.modifiers & Qt.ControlModifier))
+            {
+                jeu.annulerDernierCoup();
+                return;
+            }
+
             switch (event.key)
             {
             case Qt.Key_Left:
-                grilleItem.deplacerGauche();
+                jeu.deplacerGauche();
                 break;
             case Qt.Key_Right:
-                grilleItem.deplacerDroite();
+                jeu.deplacerDroite();
                 break;
             case Qt.Key_Up:
-                grilleItem.deplacerHaut();
+                jeu.deplacerHaut();
                 break;
             case Qt.Key_Down:
-                grilleItem.deplacerBas();
+                jeu.deplacerBas();
                 break;
             }
         }
@@ -90,17 +97,35 @@ Window {
         visible: grilleItem.over
     }
 
-     // TODO test, enlever dès que possible
-    MouseArea {
-        anchors.fill: parent
 
-        onClicked: {
-            // Test changement de valeur
-            /*grilleItem.setTile(0, 0, counter)
-            counter = counter * 2;*/
+    // TODO test, enlever dès que possible
+    Item {
+        id: boutonPanel
+        x: 10
+        y: 512
+        anchors.top: grille.bottom
+        anchors.topMargin: 10
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 10
 
-            // Test changement de taille
-            /*grilleItem.size = 2*/
+        Row {
+            id: boutonRows
+            anchors.fill: parent
+
+            Button {
+                id: annuler
+                width: 200
+                height: 50
+                text: qsTr("Annuler le dernier coup")
+                tooltip: "Permet d'annuler le dernier coup joué"
+                enabled: jeu.peutAnnuler
+                anchors.verticalCenter: parent.verticalCenter
+                onClicked: jeu.annulerDernierCoup()
+            }
         }
     }
 
@@ -108,7 +133,12 @@ Window {
 
 
 
+
+
+
+
 /*##^## Designer {
-    D{i:2;anchors_height:66;anchors_y:28}D{i:7;anchors_x:60;anchors_y:180}
+    D{i:2;anchors_height:66;anchors_y:28}D{i:8;anchors_height:400;anchors_width:200}D{i:7;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
+D{i:10;anchors_x:60;anchors_y:180}
 }
  ##^##*/

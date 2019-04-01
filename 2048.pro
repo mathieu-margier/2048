@@ -16,7 +16,8 @@ SOURCES += \
         main.cpp \
     damierdyn.cpp \
     grille.cpp \
-    grilleitem.cpp
+    grilleitem.cpp \
+    jeu.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     damierdyn.h \
     grille.h \
-    grilleitem.h
+    grilleitem.h \
+    jeu.h

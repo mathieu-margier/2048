@@ -43,13 +43,6 @@ void Grille::initialiser()
 
 void Grille::deplacer(Direction dir)
 {
-    if (!check(dir))
-    {
-        // TODO Remove
-        cout << "Impossible de déplacer dans la direction " << dir << endl;
-        return;
-    }
-
     int n = GetLines(), m = GetColumns();
     switch (dir)
     {
