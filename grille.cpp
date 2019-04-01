@@ -446,9 +446,10 @@ bool Grille::check2048()
     for (int i=0;i<GetLines();i++){
         for (int j=0;j<GetColumns();j++){
             if (Get(i,j)==2048){
-                b=true;
-                break;
+                return true;
             }
         }
     }
+
+    return false;
 }

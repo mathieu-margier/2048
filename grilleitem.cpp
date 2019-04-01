@@ -88,6 +88,18 @@ int GrilleItem::getScore() const
     return _plateau.getScore();
 }
 
+bool GrilleItem::isOver() const
+{
+    // La partie est finie si soit on a atteint 2048, soit on ne peut plus jouer
+    return _plateau.check2048() ||
+            (!_plateau.check(Grille::BAS) && !_plateau.check(Grille::HAUT) && !_plateau.check(Grille::GAUCHE) && !_plateau.check(Grille::DROITE));
+}
+
+bool GrilleItem::isWin() const
+{
+    return _plateau.check2048();
+}
+
 void GrilleItem::deplacerBas()
 {
     deplacer(Grille::BAS);
@@ -116,4 +128,7 @@ void GrilleItem::deplacer(Grille::Direction dir)
     int newScore = getScore();
     if (oldScore != newScore)
         emit scoreChanged(oldScore, newScore);
+
+    if (isOver())
+        emit etatPartieChanged(true);
 }

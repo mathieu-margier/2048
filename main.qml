@@ -73,6 +73,23 @@ Window {
         }
     }
 
+    Text {
+        id: message
+        x: 202
+        y: 287
+        text: grilleItem.win ? qsTr("Victoire !") : qsTr("GAME OVER")
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        wrapMode: Text.NoWrap
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.bold: true
+        transformOrigin: Item.Center
+        font.family: "Verdana"
+        font.pixelSize: 74
+        visible: grilleItem.over
+    }
+
      // TODO test, enlever dès que possible
     MouseArea {
         anchors.fill: parent
@@ -84,19 +101,6 @@ Window {
 
             // Test changement de taille
             /*grilleItem.size = 2*/
-        }
-
-        Text {
-            id: message
-            text: qsTr("GAME OVER")
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.bold: true
-            transformOrigin: Item.Center
-            font.family: "Verdana"
-            anchors.fill: parent
-            font.pixelSize: 74
-            visible:false
         }
     }
 
