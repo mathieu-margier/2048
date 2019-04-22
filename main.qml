@@ -78,28 +78,46 @@ Window {
         anchors.top: parent.top
         anchors.topMargin: 10
 
-        Row {
-            id: scoreRows
-            spacing: 10
+        Grid {
+            id: grid
+            anchors.rightMargin: 80
+            anchors.leftMargin: 80
+            spacing: 3
+            columns: 2
+            rows: 2
             anchors.fill: parent
 
             Text {
                 id: scoreLabel
                 text: qsTr("Score :")
                 horizontalAlignment: Text.AlignLeft
-                anchors.verticalCenter: parent.verticalCenter
                 lineHeight: 0.9
                 font.family: "Verdana"
-                font.pixelSize: 45
+                font.pixelSize: 30
             }
 
             Text {
                 id: scoreValue
                 text: grilleItem.score
                 //anchors.left: scoreLabel.right
+                font.pixelSize: 30
+            }
+
+            Text {
+                id: bestScoreLabel
+                text: qsTr("Record :")
+                horizontalAlignment: Text.AlignLeft
+                lineHeight: 0.9
+                font.family: "Verdana"
+                font.pixelSize: 30
+            }
+
+            Text {
+                id: bestScoreValue
+                text: jeu.bestScore
+                //anchors.left: scoreLabel.right
                 anchors.leftMargin: 100
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 45
+                font.pixelSize: 30
             }
         }
     }
@@ -121,39 +139,39 @@ Window {
         visible: true
         opacity: 0
 
-            states: [
-                State {
-                    name: "victoire"
-                    when: grilleItem.over && grilleItem.win;
-                        PropertyChanges {
-                            target: message;
-                            opacity: 1.0;
-                            text: qsTr("Victoire !");
-                        }
-                },
-                State {
-                    name: "defaite"
-                    when: grilleItem.over && !grilleItem.win;
-                        PropertyChanges {
-                            target: message;
-                            opacity: 1.0;
-                            text: qsTr("GAME OVER");
-                        }
-                },
-                State {
-                    name: "jeu"
-                    when: !grilleItem.over;
-                        PropertyChanges {
-                            target: message;
-                            opacity: 0.0;
-                        }
+        states: [
+            State {
+                name: "victoire"
+                when: grilleItem.over && grilleItem.win;
+                PropertyChanges {
+                    target: message;
+                    opacity: 1.0;
+                    text: qsTr("Victoire !");
                 }
-            ]
-            transitions: [
-                Transition {
-                    NumberAnimation { property: "opacity"; duration: 500}
+            },
+            State {
+                name: "defaite"
+                when: grilleItem.over && !grilleItem.win;
+                PropertyChanges {
+                    target: message;
+                    opacity: 1.0;
+                    text: qsTr("GAME OVER");
                 }
-            ]
+            },
+            State {
+                name: "jeu"
+                when: !grilleItem.over;
+                PropertyChanges {
+                    target: message;
+                    opacity: 0.0;
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                NumberAnimation { property: "opacity"; duration: 500}
+            }
+        ]
     }
 
     Item {
@@ -199,14 +217,11 @@ Window {
 
 }
 
-
-
-
-
-
-
 /*##^## Designer {
-    D{i:2;anchors_height:66;anchors_y:28}D{i:8;anchors_height:400;anchors_width:200}D{i:7;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
-D{i:10;anchors_x:60;anchors_y:180}
+    D{i:5;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}D{i:6;anchors_height:400;anchors_width:200}
+D{i:3;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}D{i:2;anchors_height:66;anchors_y:28}
+D{i:10;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}D{i:9;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
+D{i:12;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}D{i:11;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
+D{i:14;anchors_x:60;anchors_y:180}D{i:8;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}
 }
  ##^##*/

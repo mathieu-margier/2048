@@ -1,9 +1,26 @@
 #include "jeu.h"
+#include <iostream>
+#include <fstream>
 
 Jeu::Jeu(int taille, QObject *parent)
     : QObject(parent), _grille(taille), _plateauItem(_grille),
       _coupsPrecedents(), _coupsSuivants()
 {
+    QObject::connect(&_plateauItem, &GrilleItem::scoreChanged, this, &Jeu::scoreChanged);
+
+    _bestScore = 0;
+
+    ifstream fichier;
+    fichier.open(BEST_SCORE_FILENAME, ios::in);
+
+    if (fichier.is_open())
+    {
+        fichier >> _bestScore;
+        fichier.close();
+    }
+    else {
+        std::cout << "Impossible de charger le meilleur score, initialisation à 0." << std::endl;
+    }
 
 }
 
@@ -86,6 +103,38 @@ void Jeu::deplacer(Grille::Direction dir)
             _coupsSuivants.pop();
 
         emit coupJoue();
+    }
+}
+
+void Jeu::sauverBestScore() const
+{
+    std::ofstream fichier;
+    // Ouverture en mode écriture, et remplacer le contenu du fichier
+    fichier.open(BEST_SCORE_FILENAME, ios::out | ios::trunc);
+
+    if (fichier.is_open())
+    {
+        fichier << _bestScore;
+        fichier.close();
+    }
+    else {
+        std::cout << "Impossible d'enregistrer le record !" << std::endl;
+    }
+}
+
+int Jeu::getBestScore() const
+{
+    return _bestScore;
+}
+
+void Jeu::scoreChanged(int oldScore, int newScore)
+{
+    Q_UNUSED(oldScore)
+
+    if (newScore > _bestScore)
+    {
+        _bestScore = newScore;
+        sauverBestScore();
     }
 }
 
