@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE bool isWin() const;
 
     void deplacer(Grille::Direction dir);
+    void cheatCode();
 
 signals:
     void sizeChanged(int oldSize, int newSize);

@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE void deplacerHaut();
     Q_INVOKABLE void deplacerGauche();
     Q_INVOKABLE void deplacerDroite();
+    Q_INVOKABLE void cheatCode();
     Q_INVOKABLE void annulerDernierCoup();
     Q_INVOKABLE void refaireDernierCoup();
     Q_INVOKABLE bool peutAnnuler() const;

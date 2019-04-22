@@ -31,7 +31,6 @@ public:
 
     bool check2048();
 
-    // TODO Ajouter fonctions pour manipuler le plateau (move, set, etc.)
     void deplacer(Direction dir);
     bool check(Direction dir);
 

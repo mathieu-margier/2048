@@ -88,3 +88,15 @@ void Jeu::deplacer(Grille::Direction dir)
         emit coupJoue();
     }
 }
+
+void Jeu::cheatCode()
+{
+    _coupsPrecedents.push(_grille);
+    _plateauItem.cheatCode();
+
+    // Si l'on joue un coup, on ne peut plus refaire les coups précédemment annulés
+    while (!_coupsSuivants.empty())
+        _coupsSuivants.pop();
+
+    emit coupJoue();
+}

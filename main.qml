@@ -3,13 +3,15 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.6
 
 Window {
-    // TODO test, enlever dès que plus nécessaire
-    property int counter: 2
     id: window
     visible: true
     width: 900
     height: 600
     title: qsTr("2048")
+
+    // Code secret
+    property var code: [Qt.Key_Up, Qt.Key_Up, Qt.Key_Down, Qt.Key_Down, Qt.Key_Left, Qt.Key_Right, Qt.Key_Left, Qt.Key_Right, Qt.Key_B, Qt.Key_A]
+    property int codeCounter: 0
 
     Grille {
         id: grille
@@ -18,6 +20,21 @@ Window {
 
         focus: true
         Keys.onPressed: {
+
+            if (event.key === code[codeCounter])
+            {
+                codeCounter++;
+
+                if (codeCounter === code.length)
+                {
+                    codeCounter = 0;
+                    jeu.cheatCode();
+                }
+            }
+            else
+            {
+                codeCounter = 0;
+            }
 
             if ((event.key === Qt.Key_Z) && (event.modifiers & Qt.ControlModifier))
             {
@@ -91,7 +108,7 @@ Window {
         id: message
         x: 202
         y: 287
-        text: grilleItem.win ? qsTr("Victoire !") : qsTr("GAME OVER")
+        text: ""
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         wrapMode: Text.NoWrap
@@ -101,7 +118,42 @@ Window {
         transformOrigin: Item.Center
         font.family: "Verdana"
         font.pixelSize: 74
-        visible: grilleItem.over
+        visible: true
+        opacity: 0
+
+            states: [
+                State {
+                    name: "victoire"
+                    when: grilleItem.over && grilleItem.win;
+                        PropertyChanges {
+                            target: message;
+                            opacity: 1.0;
+                            text: qsTr("Victoire !");
+                        }
+                },
+                State {
+                    name: "defaite"
+                    when: grilleItem.over && !grilleItem.win;
+                        PropertyChanges {
+                            target: message;
+                            opacity: 1.0;
+                            text: qsTr("GAME OVER");
+                        }
+                },
+                State {
+                    name: "jeu"
+                    when: !grilleItem.over;
+                        PropertyChanges {
+                            target: message;
+                            opacity: 0.0;
+                        }
+                }
+            ]
+            transitions: [
+                Transition {
+                    NumberAnimation { property: "opacity"; duration: 500}
+                }
+            ]
     }
 
     Item {

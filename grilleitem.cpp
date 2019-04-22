@@ -132,3 +132,17 @@ void GrilleItem::deplacer(Grille::Direction dir)
     if (isOver())
         emit etatPartieChanged(true);
 }
+
+void GrilleItem::cheatCode()
+{
+    int oldScore = getScore();
+    _plateau.Set(0, 0, 2048);
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    int newScore = getScore();
+    if (oldScore != newScore)
+        emit scoreChanged(oldScore, newScore);
+
+    if (isOver())
+        emit etatPartieChanged(true);
+}

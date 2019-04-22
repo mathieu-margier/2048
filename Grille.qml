@@ -26,6 +26,7 @@ Rectangle {
             Tile {
                 value: display
                 size: (gridSize - (grilleItem.size+1) * gridSpacing) / grilleItem.size
+                fontSize: grilleItem.size > 5 ? 12 : 17
                 anchors.centerIn: parent
             }
 
