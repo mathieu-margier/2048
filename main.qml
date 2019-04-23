@@ -91,7 +91,7 @@ Window {
     }
 
     Button {
-        id: button
+        id: newgame
         x: 350
         y: 520
         width: 200
@@ -99,6 +99,78 @@ Window {
         text: qsTr("Nouvelle Partie")
         onClicked:{
             grilleItem.newGame();
+        }
+    }
+
+    Button {
+        id: quatre
+        x: 667
+        y: 226
+        width: 200
+        height: 50
+        text: qsTr("4x4")
+        onClicked: {
+            grilleItem.redim(4,4);
+        }
+    }
+
+    Button {
+        id: cinq
+        x: 667
+        y: 282
+        width: 200
+        height: 50
+        text: qsTr("5x5")
+        onClicked: {
+            grilleItem.redim(5,5);
+        }
+    }
+
+    Button {
+        id: six
+        x: 667
+        y: 338
+        width: 200
+        height: 50
+        text: qsTr("6x6")
+        onClicked: {
+            grilleItem.redim(6,6);
+        }
+    }
+
+    Button {
+        id: huit
+        x: 667
+        y: 394
+        width: 200
+        height: 50
+        text: qsTr("8x8")
+        onClicked: {
+            grilleItem.redim(8,8);
+        }
+    }
+
+    Button {
+        id: dix
+        x: 667
+        y: 450
+        width: 200
+        height: 50
+        text: qsTr("10x10")
+        onClicked: {
+            grilleItem.redim(10,10);
+        }
+    }
+
+    Button {
+        id: trois
+        x: 667
+        y: 170
+        width: 200
+        height: 50
+        text: qsTr("3x3")
+        onClicked: {
+            grilleItem.redim(3,3);
         }
     }
 

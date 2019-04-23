@@ -143,3 +143,13 @@ void GrilleItem::newGame()
     if (oldScore != newScore)
         emit scoreChanged(oldScore, newScore);
 }
+
+void GrilleItem::redim(int a, int b)
+{
+    int oldLines = _plateau.GetLines();
+    int oldColumns = _plateau.GetColumns();
+
+    setSize(a);
+    newGame();
+}
+

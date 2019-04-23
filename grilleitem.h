@@ -37,6 +37,7 @@ public:
     Q_INVOKABLE void deplacerGauche();
     Q_INVOKABLE void deplacerDroite();
     Q_INVOKABLE void newGame();
+    Q_INVOKABLE void redim(int a, int b);
 
 private:
     void deplacer(Grille::Direction dir);
