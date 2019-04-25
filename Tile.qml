@@ -2,6 +2,8 @@ import QtQuick 2.0;
 
 Item {
     property int size: 96
+    property int fontSize: 17
+    property int cornerRadius: 16
     property int value: 0
     width: size
     height: size
@@ -40,7 +42,7 @@ Item {
             }
         }
 
-        radius: 16
+        radius: cornerRadius
         border.width: 0
         anchors.fill: parent
     }
@@ -48,7 +50,7 @@ Item {
     Text {
         id: tileValue
         text: qsTr("" + value)
-        font.pointSize: 17
+        font.pointSize: fontSize
         font.bold: true
         font.family: "Verdana"
         verticalAlignment: Text.AlignVCenter

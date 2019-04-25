@@ -60,6 +60,25 @@ int GrilleItem::rowCount(const QModelIndex &parent) const
     return _plateau.GetLines() * _plateau.GetColumns();
 }
 
+void GrilleItem::changerGrille(const Grille &nvlleGrille)
+{
+    int oldScore = getScore();
+    int oldSize = getSize();
+    int oldOver = isOver();
+    // Recopie
+    _plateau = nvlleGrille;
+
+    if (getSize() != oldSize)
+        emit sizeChanged(oldSize, getSize());
+
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    if (getScore() != oldScore)
+        emit scoreChanged(oldScore, getScore());
+
+    if (isOver() != oldOver)
+        emit etatPartieChanged(isOver());
+}
 
 int GrilleItem::getSize() const
 {
@@ -100,29 +119,24 @@ bool GrilleItem::isWin() const
     return _plateau.check2048();
 }
 
-void GrilleItem::deplacerBas()
-{
-    deplacer(Grille::BAS);
-}
-
-void GrilleItem::deplacerHaut()
-{
-    deplacer(Grille::HAUT);
-}
-
-void GrilleItem::deplacerGauche()
-{
-    deplacer(Grille::GAUCHE);
-}
-void GrilleItem::deplacerDroite()
-{
-    deplacer(Grille::DROITE);
-}
-
 void GrilleItem::deplacer(Grille::Direction dir)
 {
     int oldScore = getScore();
     _plateau.deplacer(dir);
+    emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
+
+    int newScore = getScore();
+    if (oldScore != newScore)
+        emit scoreChanged(oldScore, newScore);
+
+    if (isOver())
+        emit etatPartieChanged(true);
+}
+
+void GrilleItem::cheatCode()
+{
+    int oldScore = getScore();
+    _plateau.Set(0, 0, 2048);
     emit dataChanged(createIndex(0, 0), createIndex(getSize() * getSize() - 1, 0));
 
     int newScore = getScore();
@@ -142,14 +156,13 @@ void GrilleItem::newGame()
     int newScore = getScore();
     if (oldScore != newScore)
         emit scoreChanged(oldScore, newScore);
+
+    emit etatPartieChanged(isOver());
 }
 
-void GrilleItem::redim(int a, int b)
+void GrilleItem::redim(int size)
 {
-    int oldLines = _plateau.GetLines();
-    int oldColumns = _plateau.GetColumns();
-
-    setSize(a);
+    setSize(size);
     newGame();
 }
 

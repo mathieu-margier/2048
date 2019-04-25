@@ -3,13 +3,23 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.6
 
 Window {
-    // TODO test, enlever dès que plus nécessaire
-    property int counter: 2
     id: window
     visible: true
     width: 900
     height: 600
+
+    // Fixe la taille de la fenêtre
+    maximumHeight: height
+    maximumWidth: width
+
+    minimumHeight: height
+    minimumWidth: width
+
     title: qsTr("2048")
+
+    // Code secret
+    property var code: [Qt.Key_Up, Qt.Key_Up, Qt.Key_Down, Qt.Key_Down, Qt.Key_Left, Qt.Key_Right, Qt.Key_Left, Qt.Key_Right, Qt.Key_B, Qt.Key_A]
+    property int codeCounter: 0
 
     Grille {
         id: grille
@@ -18,19 +28,48 @@ Window {
 
         focus: true
         Keys.onPressed: {
+
+            if (event.key === code[codeCounter])
+            {
+                codeCounter++;
+
+                if (codeCounter === code.length)
+                {
+                    codeCounter = 0;
+                    jeu.cheatCode();
+                }
+            }
+            else
+            {
+                codeCounter = 0;
+            }
+
+            if ((event.key === Qt.Key_Z) && (event.modifiers & Qt.ControlModifier))
+            {
+                // Ctrl+Z
+                jeu.annulerDernierCoup();
+                return;
+            }
+            if ((event.key === Qt.Key_Y) && (event.modifiers & Qt.ControlModifier))
+            {
+                // Ctrl+Y
+                jeu.refaireDernierCoup();
+                return;
+            }
+
             switch (event.key)
             {
             case Qt.Key_Left:
-                grilleItem.deplacerGauche();
+                jeu.deplacerGauche();
                 break;
             case Qt.Key_Right:
-                grilleItem.deplacerDroite();
+                jeu.deplacerDroite();
                 break;
             case Qt.Key_Up:
-                grilleItem.deplacerHaut();
+                jeu.deplacerHaut();
                 break;
             case Qt.Key_Down:
-                grilleItem.deplacerBas();
+                jeu.deplacerBas();
                 break;
             }
         }
@@ -47,28 +86,46 @@ Window {
         anchors.top: parent.top
         anchors.topMargin: 10
 
-        Row {
-            id: scoreRows
-            spacing: 10
+        Grid {
+            id: grid
+            anchors.rightMargin: 80
+            anchors.leftMargin: 80
+            spacing: 3
+            columns: 2
+            rows: 2
             anchors.fill: parent
 
             Text {
                 id: scoreLabel
                 text: qsTr("Score :")
                 horizontalAlignment: Text.AlignLeft
-                anchors.verticalCenter: parent.verticalCenter
                 lineHeight: 0.9
                 font.family: "Verdana"
-                font.pixelSize: 45
+                font.pixelSize: 30
             }
 
             Text {
                 id: scoreValue
                 text: grilleItem.score
                 //anchors.left: scoreLabel.right
+                font.pixelSize: 30
+            }
+
+            Text {
+                id: bestScoreLabel
+                text: qsTr("Record :")
+                horizontalAlignment: Text.AlignLeft
+                lineHeight: 0.9
+                font.family: "Verdana"
+                font.pixelSize: 30
+            }
+
+            Text {
+                id: bestScoreValue
+                text: jeu.bestScore
+                //anchors.left: scoreLabel.right
                 anchors.leftMargin: 100
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 45
+                font.pixelSize: 30
             }
         }
     }
@@ -77,7 +134,7 @@ Window {
         id: message
         x: 202
         y: 287
-        text: grilleItem.win ? qsTr("Victoire !") : qsTr("GAME OVER")
+        text: ""
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         wrapMode: Text.NoWrap
@@ -86,19 +143,82 @@ Window {
         font.bold: true
         transformOrigin: Item.Center
         font.family: "Verdana"
-        font.pixelSize: 74
-        visible: grilleItem.over
+        font.pixelSize: 62
+        visible: true
+        opacity: 0
+
+        states: [
+            State {
+                name: "victoire"
+                when: grilleItem.over && grilleItem.win;
+                PropertyChanges {
+                    target: message;
+                    opacity: 1.0;
+                    text: qsTr("Victoire !");
+                }
+            },
+            State {
+                name: "defaite"
+                when: grilleItem.over && !grilleItem.win;
+                PropertyChanges {
+                    target: message;
+                    opacity: 1.0;
+                    text: qsTr("GAME OVER");
+                }
+            },
+            State {
+                name: "jeu"
+                when: !grilleItem.over;
+                PropertyChanges {
+                    target: message;
+                    opacity: 0.0;
+                }
+            }
+        ]
+        transitions: [
+            Transition {
+                NumberAnimation { property: "opacity"; duration: 500}
+            }
+        ]
+    }
+
+    Button {
+        id: refaire
+        x: 452
+        y: 530
+        width: 200
+        height: 50
+        text: qsTr("Rejouer le dernier coup")
+        anchors.verticalCenterOffset: 256
+        tooltip: "Permet de refaire le dernier coup annulé"
+        enabled: jeu.peutRefaire
+        anchors.verticalCenter: parent.verticalCenter
+        onClicked: jeu.refaireDernierCoup()
+    }
+
+    Button {
+        id: annuler
+        x: 246
+        y: 530
+        width: 200
+        height: 50
+        text: qsTr("Annuler le dernier coup")
+        anchors.verticalCenterOffset: 256
+        tooltip: "Permet d'annuler le dernier coup joué"
+        enabled: jeu.peutAnnuler
+        anchors.verticalCenter: parent.verticalCenter
+        onClicked: jeu.annulerDernierCoup()
     }
 
     Button {
         id: newgame
-        x: 350
-        y: 520
+        x: 667
+        y: 114
         width: 200
         height: 50
         text: qsTr("Nouvelle Partie")
         onClicked:{
-            grilleItem.newGame();
+            jeu.nouvellePartie(grilleItem.size);
         }
     }
 
@@ -110,7 +230,7 @@ Window {
         height: 50
         text: qsTr("4x4")
         onClicked: {
-            grilleItem.redim(4,4);
+            jeu.nouvellePartie(4);
         }
     }
 
@@ -122,7 +242,7 @@ Window {
         height: 50
         text: qsTr("5x5")
         onClicked: {
-            grilleItem.redim(5,5);
+            jeu.nouvellePartie(5);
         }
     }
 
@@ -134,7 +254,7 @@ Window {
         height: 50
         text: qsTr("6x6")
         onClicked: {
-            grilleItem.redim(6,6);
+            jeu.nouvellePartie(6);
         }
     }
 
@@ -146,7 +266,7 @@ Window {
         height: 50
         text: qsTr("8x8")
         onClicked: {
-            grilleItem.redim(8,8);
+            jeu.nouvellePartie(8);
         }
     }
 
@@ -158,7 +278,7 @@ Window {
         height: 50
         text: qsTr("10x10")
         onClicked: {
-            grilleItem.redim(10,10);
+            jeu.nouvellePartie(10);
         }
     }
 
@@ -170,17 +290,19 @@ Window {
         height: 50
         text: qsTr("3x3")
         onClicked: {
-            grilleItem.redim(3,3);
+            jeu.nouvellePartie(3);
         }
     }
-
-
 
 }
 
 
 
 /*##^## Designer {
-    D{i:2;anchors_height:66;anchors_y:28}D{i:7;anchors_x:60;anchors_y:180}
+    D{i:5;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}D{i:6;anchors_height:400;anchors_width:200}
+D{i:3;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}D{i:2;anchors_height:66;anchors_y:28}
+D{i:10;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}D{i:9;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
+D{i:12;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}D{i:11;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}
+D{i:14;anchors_x:60;anchors_y:180}D{i:8;anchors_height:400;anchors_width:200;anchors_x:60;anchors_y:180}
 }
  ##^##*/

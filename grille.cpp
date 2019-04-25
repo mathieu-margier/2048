@@ -43,13 +43,6 @@ void Grille::initialiser()
 
 void Grille::deplacer(Direction dir)
 {
-    if (!check(dir))
-    {
-        // TODO Remove
-        cout << "Impossible de déplacer dans la direction " << dir << endl;
-        return;
-    }
-
     int n = GetLines(), m = GetColumns();
     switch (dir)
     {
@@ -426,8 +419,8 @@ void Grille::AjoutNombreAlea()
     int n1;
     int n2;
     while (b!=true){
-        n1=rand()%4;
-        n2=rand()%4;
+        n1=rand() % GetLines();
+        n2=rand() % GetColumns();
         b=checkVoid(n1,n2);
     }
     int c=rand()%100;
