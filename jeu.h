@@ -30,6 +30,7 @@ public:
     Q_INVOKABLE bool peutAnnuler() const;
     Q_INVOKABLE bool peutRefaire() const;
     Q_INVOKABLE int getBestScore() const;
+    Q_INVOKABLE void nouvellePartie(int size);
 
 private:
     void deplacer(Grille::Direction dir);

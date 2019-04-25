@@ -446,3 +446,10 @@ bool Grille::check2048()
 
     return false;
 }
+
+void Grille::newGame()
+{
+    initialiser();
+
+    _score = 0;
+}

@@ -7,6 +7,14 @@ Window {
     visible: true
     width: 900
     height: 600
+
+    // Fixe la taille de la fenêtre
+    maximumHeight: height
+    maximumWidth: width
+
+    minimumHeight: height
+    minimumWidth: width
+
     title: qsTr("2048")
 
     // Code secret
@@ -135,7 +143,7 @@ Window {
         font.bold: true
         transformOrigin: Item.Center
         font.family: "Verdana"
-        font.pixelSize: 74
+        font.pixelSize: 62
         visible: true
         opacity: 0
 
@@ -174,48 +182,121 @@ Window {
         ]
     }
 
-    Item {
-        id: boutonPanel
-        x: 10
-        y: 512
-        anchors.top: grille.bottom
-        anchors.topMargin: 10
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 10
+    Button {
+        id: refaire
+        x: 452
+        y: 530
+        width: 200
+        height: 50
+        text: qsTr("Rejouer le dernier coup")
+        anchors.verticalCenterOffset: 256
+        tooltip: "Permet de refaire le dernier coup annulé"
+        enabled: jeu.peutRefaire
+        anchors.verticalCenter: parent.verticalCenter
+        onClicked: jeu.refaireDernierCoup()
+    }
 
-        Row {
-            id: boutonRows
-            anchors.fill: parent
+    Button {
+        id: annuler
+        x: 246
+        y: 530
+        width: 200
+        height: 50
+        text: qsTr("Annuler le dernier coup")
+        anchors.verticalCenterOffset: 256
+        tooltip: "Permet d'annuler le dernier coup joué"
+        enabled: jeu.peutAnnuler
+        anchors.verticalCenter: parent.verticalCenter
+        onClicked: jeu.annulerDernierCoup()
+    }
 
-            Button {
-                id: annuler
-                width: 200
-                height: 50
-                text: qsTr("Annuler le dernier coup")
-                tooltip: "Permet d'annuler le dernier coup joué"
-                enabled: jeu.peutAnnuler
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: jeu.annulerDernierCoup()
-            }
+    Button {
+        id: newgame
+        x: 667
+        y: 114
+        width: 200
+        height: 50
+        text: qsTr("Nouvelle Partie")
+        onClicked:{
+            jeu.nouvellePartie(grilleItem.size);
+        }
+    }
 
-            Button {
-                id: refaire
-                width: 200
-                height: 50
-                text: qsTr("Rejouer le dernier coup")
-                tooltip: "Permet de refaire le dernier coup annulé"
-                enabled: jeu.peutRefaire
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: jeu.refaireDernierCoup()
-            }
+    Button {
+        id: quatre
+        x: 667
+        y: 226
+        width: 200
+        height: 50
+        text: qsTr("4x4")
+        onClicked: {
+            jeu.nouvellePartie(4);
+        }
+    }
+
+    Button {
+        id: cinq
+        x: 667
+        y: 282
+        width: 200
+        height: 50
+        text: qsTr("5x5")
+        onClicked: {
+            jeu.nouvellePartie(5);
+        }
+    }
+
+    Button {
+        id: six
+        x: 667
+        y: 338
+        width: 200
+        height: 50
+        text: qsTr("6x6")
+        onClicked: {
+            jeu.nouvellePartie(6);
+        }
+    }
+
+    Button {
+        id: huit
+        x: 667
+        y: 394
+        width: 200
+        height: 50
+        text: qsTr("8x8")
+        onClicked: {
+            jeu.nouvellePartie(8);
+        }
+    }
+
+    Button {
+        id: dix
+        x: 667
+        y: 450
+        width: 200
+        height: 50
+        text: qsTr("10x10")
+        onClicked: {
+            jeu.nouvellePartie(10);
+        }
+    }
+
+    Button {
+        id: trois
+        x: 667
+        y: 170
+        width: 200
+        height: 50
+        text: qsTr("3x3")
+        onClicked: {
+            jeu.nouvellePartie(3);
         }
     }
 
 }
+
+
 
 /*##^## Designer {
     D{i:5;anchors_height:88;anchors_width:200;anchors_x:60;anchors_y:180}D{i:6;anchors_height:400;anchors_width:200}

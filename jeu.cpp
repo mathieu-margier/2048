@@ -138,6 +138,19 @@ void Jeu::scoreChanged(int oldScore, int newScore)
     }
 }
 
+void Jeu::nouvellePartie(int size)
+{
+    // On réinitialise les coups joués
+    while (!_coupsPrecedents.empty())
+        _coupsPrecedents.pop();
+
+    while (!_coupsSuivants.empty())
+        _coupsSuivants.pop();
+
+    _plateauItem.redim(size);
+    emit coupJoue();
+}
+
 void Jeu::cheatCode()
 {
     _coupsPrecedents.push(_grille);

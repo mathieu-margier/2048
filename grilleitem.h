@@ -27,7 +27,6 @@ public:
 
     void changerGrille(const Grille& nvlleGrille);
 
-    // TODO Faire une propriété
     Q_INVOKABLE int getSize() const;
     Q_INVOKABLE void setSize(int size);
     Q_INVOKABLE int getScore() const;
@@ -36,6 +35,8 @@ public:
     Q_INVOKABLE bool isWin() const;
 
     void deplacer(Grille::Direction dir);
+    void newGame();
+    void redim(int size);
     void cheatCode();
 
 signals:
