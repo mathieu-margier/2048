@@ -32,8 +32,9 @@ Rectangle {
                     case 3:
                         return 21;
                     case 4:
-                    case 5:
                         return 17;
+                    case 5:
+                        return 15;
                     case 6:
                         return 12;
                     case 8:

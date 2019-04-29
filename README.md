@@ -23,6 +23,8 @@ en dessous de la grille, ou appuyez simultanément sur Ctrl et Y au clavier
 à droite pour rejouer avec une grille de même taille. Pour commencer une
 partie avec une grille de taille différente, appuyez sur le bouton de la
 taille souhaitée, en dessous du bouton _Nouvelle Partie_
+* Pour changer la couleur des cases de la grille, sélectionnez une gamme de
+couleur en appuyant sur un des boutons à gauche de la grille
 * La combinaison de touches Haut Haut Bas Bas Gauche Droite Gauche Droite B A
 déclenche quelque chose...
 
@@ -30,7 +32,7 @@ Le jeu affiche le score de la partie en cours, ainsi que le record personnel
 au dessus de la grille.
 
 Une fois que la partie est finie, un message s'affiche au dessus de la grille
-pour indiquer si la partie est gagnée ou partie. Si la partie est gagnée
+pour indiquer si la partie est gagnée ou perdue. Si la partie est gagnée
 (présence d'un 2048 dans la grille), on peut toutefois continuer de jouer.
 Si la partie est finie, on peut en relancer une nouvelle en suivant les
 instructions _Nouvelle Partie_ indiquée ci-dessus.

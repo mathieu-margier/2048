@@ -122,7 +122,7 @@ Item {
         anchors.fill: parent
         color:
         {
-            if (jeu.theme == 1 || jeu.theme == 3){
+            if (jeu.theme == 1){
                 switch (value)
                 {
                 case 2:
@@ -141,32 +141,41 @@ Item {
                     return "#f9f6f2";
                 }
             }
-
-            if (jeu.theme == 2){
+            else if (jeu.theme == 2){
                 switch (value)
                 {
                 case 2:
-                    return "#f9f6f2";
                 case 4:
                     return "#f9f6f2";
                 case 8:
-                    return "#f9f6f2";
                 case 16:
-                    return "#776e65";
                 case 32:
-                    return "#776e65";
                 case 64:
-                    return "#776e65";
                 case 128:
-                    return "#776e65";
                 case 256:
-                    return "#776e65";
                 case 512:
-                    return "#776e65";
                 case 1024:
-                    return "#f9f6f2";
                 case 2048:
-                    return "#f9f6f2";
+                default:
+                    return "#776e65";
+                }
+            }
+            else if (jeu.theme == 3)
+            {
+                switch (value)
+                {
+                case 2:
+                case 4:
+                    return "#776e65";
+                case 8:
+                case 16:
+                case 32:
+                case 64:
+                case 128:
+                case 256:
+                case 512:
+                case 1024:
+                case 2048:
                 default:
                     return "#f9f6f2";
                 }
