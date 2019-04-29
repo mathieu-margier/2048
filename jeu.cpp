@@ -162,3 +162,14 @@ void Jeu::cheatCode()
 
     emit coupJoue();
 }
+
+void Jeu::changerGammeCouleur(int theme)
+{
+    _theme = theme;
+    emit coupJoue();
+}
+
+int Jeu::getColor() const
+{
+    return _theme;
+}

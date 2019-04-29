@@ -294,6 +294,42 @@ Window {
         }
     }
 
+    Button {
+        id: color1
+        x: 20
+        y: 338
+        width: 200
+        height: 50
+        text: qsTr("Gamme de couleur 1")
+        onClicked: {
+            jeu.changerGammeCouleur(1)
+        }
+    }
+
+    Button {
+        id: color2
+        x: 20
+        y: 394
+        width: 200
+        height: 50
+        text: qsTr("Gamme de couleur 2")
+        onClicked: {
+            jeu.changerGammeCouleur(2)
+        }
+    }
+
+    Button {
+        id: color3
+        x: 20
+        y: 450
+        width: 200
+        height: 50
+        text: qsTr("Gamme de couleur 3")
+        onClicked: {
+            jeu.changerGammeCouleur(3)
+        }
+    }
+
 }
 
 

@@ -14,6 +14,7 @@ class Jeu : public QObject
     Q_PROPERTY(bool peutAnnuler READ peutAnnuler NOTIFY coupJoue)
     Q_PROPERTY(bool peutRefaire READ peutRefaire NOTIFY coupJoue)
     Q_PROPERTY(int bestScore READ getBestScore NOTIFY coupJoue)
+    Q_PROPERTY(int theme READ getColor WRITE changerGammeCouleur NOTIFY coupJoue)
 
 public:
     explicit Jeu(int taille, QObject *parent = nullptr);
@@ -31,6 +32,8 @@ public:
     Q_INVOKABLE bool peutRefaire() const;
     Q_INVOKABLE int getBestScore() const;
     Q_INVOKABLE void nouvellePartie(int size);
+    Q_INVOKABLE void changerGammeCouleur(int theme=1);
+    Q_INVOKABLE int getColor() const;
 
 private:
     void deplacer(Grille::Direction dir);
@@ -46,6 +49,7 @@ private:
     Grille _grille;
     GrilleItem _plateauItem;
     int _bestScore;
+    int _theme = 1;
 
     std::stack<Grille> _coupsPrecedents;
     std::stack<Grille> _coupsSuivants;
